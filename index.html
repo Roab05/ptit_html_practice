@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Unity & Backend Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* --- CSS VARIABLES & RESET --- */
         :root {
-            --bg-color: #121212;
+            --bg-color: #0f0f0f;
+            --bg-secondary: #161616;
             --card-bg: #1e1e1e;
             --text-main: #e0e0e0;
             --text-muted: #a0a0a0;
-            --accent: #4f80ff; /* Blue for Tech/Code */
-            --accent-game: #ff4f81; /* Red/Pink for Game Dev */
+            --accent: #4f80ff; /* Blue */
+            --accent-hover: #3a60c7;
+            --accent-game: #ff4f81; /* Pink */
+            --border-color: #333;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
@@ -20,9 +24,11 @@
 
         body {
             background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 10% 20%, rgba(79, 128, 255, 0.05) 0%, transparent 20%),
+                              radial-gradient(circle at 90% 80%, rgba(255, 79, 129, 0.05) 0%, transparent 20%);
             color: var(--text-main);
             font-family: var(--font-main);
-            line-height: 1.4; /* Slightly tighter line height */
+            line-height: 1.6;
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
@@ -30,203 +36,326 @@
 
         /* --- LAYOUT --- */
         .container {
-            max-width: 1100px;
+            max-width: 1000px; /* Slightly narrower for better reading flow */
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 25px;
         }
 
-        /* REDUCED: Padding between sections cut in half */
-        section { padding: 30px 0; }
+        section { padding: 50px 0; border-bottom: 1px solid #1a1a1a; }
+        section:last-of-type { border-bottom: none; }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 { line-height: 1.2; font-weight: 700; }
+        .section-title { 
+            font-size: 1.8rem; 
+            margin-bottom: 30px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        .section-title::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border-color);
+            margin-left: 15px;
+        }
 
         /* --- HEADER / HERO --- */
         header {
-            /* REDUCED: Height reduced from 90vh to 60vh to show content sooner */
-            height: 60vh; 
-            min-height: 400px;
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
+            padding-top: 60px;
         }
 
-        /* REDUCED: Margins tightened */
-        h1 { font-size: 3.5rem; margin-bottom: 5px; line-height: 1.1; }
-        .subtitle { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 20px; }
+        h1 { font-size: 3.5rem; margin-bottom: 10px; letter-spacing: -1px; }
+        .hero-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin-bottom: 30px; }
         
-        .tagline {
-            display: inline-block;
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: rgba(79, 128, 255, 0.1);
             color: var(--accent);
-            padding: 4px 10px;
-            border-radius: 4px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 0.85rem;
-            margin-bottom: 10px; /* REDUCED from 20px */
-            border: 1px solid rgba(79, 128, 255, 0.3);
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(79, 128, 255, 0.2);
         }
 
-        .cta-btn {
-            background-color: var(--accent);
-            color: white;
-            padding: 10px 25px; /* Slightly more compact button */
-            border-radius: 5px;
-            font-weight: bold;
+        .btn-group { display: flex; gap: 15px; }
+        .btn {
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: 600;
             font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        .cta-btn:hover { background-color: #3a60c7; }
+        .btn-primary { background-color: var(--accent); color: white; }
+        .btn-primary:hover { background-color: var(--accent-hover); transform: translateY(-2px); }
+        .btn-outline { border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-outline:hover { border-color: var(--text-main); background: #222; }
 
-        /* --- SKILLS GRID --- */
+        /* --- ABOUT SECTION --- */
+        .about-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        .about-text p { margin-bottom: 15px; color: #ccc; }
+        
+        /* Stats/Quick Info */
+        .info-box {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .info-item { margin-bottom: 15px; }
+        .info-item:last-child { margin-bottom: 0; }
+        .info-label { display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .info-value { font-size: 1rem; font-weight: 600; color: white; }
+
+        /* --- EXPERIENCE TIMELINE --- */
+        .timeline { position: relative; padding-left: 20px; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 5px; bottom: 0;
+            width: 2px;
+            background: #333;
+        }
+        .timeline-item { position: relative; margin-bottom: 40px; padding-left: 20px; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px; top: 5px;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-color);
+        }
+        .timeline-date { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 5px; display: block; }
+        .timeline-role { font-size: 1.1rem; font-weight: 700; color: white; }
+        .timeline-company { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px; }
+        .timeline-desc { font-size: 0.9rem; color: #bbb; }
+
+        /* --- SKILLS --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px; /* REDUCED from 20px */
-            margin-top: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
         }
         .skill-card {
             background: var(--card-bg);
-            padding: 15px; /* REDUCED from 20px */
+            padding: 20px;
             border-radius: 8px;
-            border-left: 3px solid var(--accent);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
         }
-        .skill-card.game { border-left-color: var(--accent-game); }
-        .skill-card h3 { margin-bottom: 5px; font-size: 1.1rem; }
-        .skill-card p { font-size: 0.85rem; color: var(--text-muted); }
+        .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .skill-icon { font-size: 1.5rem; margin-bottom: 15px; color: var(--accent); }
+        .skill-card.game .skill-icon { color: var(--accent-game); }
 
         /* --- PROJECTS --- */
-        /* REDUCED: Section title margin cut down */
-        .section-title { 
-            font-size: 2rem; 
-            margin-bottom: 20px; 
-            border-bottom: 2px solid #333; 
-            padding-bottom: 5px; 
-            display: inline-block; 
-        }
-        
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px; /* REDUCED from 30px */
+            gap: 25px;
         }
-
         .project-card {
             background: var(--card-bg);
             border-radius: 10px;
             overflow: hidden;
+            border: 1px solid var(--border-color);
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
-        .project-card:hover { transform: translateY(-3px); }
-
+        .project-card:hover { transform: translateY(-5px); border-color: #555; }
         .card-img {
-            width: 100%;
-            height: 160px; /* Slightly shorter image */
+            width: 100%; height: 180px;
             object-fit: cover;
-            display: block;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid var(--border-color);
         }
-
-        /* REDUCED: Padding inside cards tightened */
-        .card-content { padding: 15px; } 
-        
-        .card-content h3 { margin-bottom: 5px; font-size: 1.1rem; }
-        .card-content p { font-size: 0.9rem; margin-bottom: 10px; }
-
-        .card-tags { margin: 10px 0 0 0; }
+        .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title { font-size: 1.2rem; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .card-desc { font-size: 0.9rem; color: #ccc; margin-bottom: 15px; flex-grow: 1; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
         .tag {
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 3px;
-            margin-right: 4px;
-            background: #2a2a2a;
-            color: var(--text-muted);
-            display: inline-block;
-            margin-bottom: 4px;
+            font-size: 0.75rem; padding: 4px 8px;
+            border-radius: 4px; background: #252525;
+            color: var(--text-muted); border: 1px solid #333;
         }
+        .project-links { margin-top: 15px; padding-top: 15px; border-top: 1px solid #333; display: flex; gap: 15px; }
+        .link-item { font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        .link-item:hover { color: var(--accent); }
 
         /* --- FOOTER --- */
         footer {
-            text-align: center;
-            padding: 20px; /* REDUCED from 40px */
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid #333;
-            margin-top: 20px;
+            text-align: center; padding: 60px 0; color: var(--text-muted); font-size: 0.9rem;
         }
-        
+        .social-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
+        .social-icon { font-size: 1.2rem; transition: 0.3s; }
+        .social-icon:hover { color: white; transform: scale(1.1); }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
-            header { height: auto; padding: 60px 0; }
+            .about-content { grid-template-columns: 1fr; }
+            .timeline::before { left: 0; }
         }
     </style>
 </head>
 <body>
 
     <header class="container">
-        <span class="tagline">Currently Student at Posts and Telecommunications Institute of Technology</span>
-        <h1>Developer Portfolio</h1>
-        <p class="subtitle">Bridging Game Development & Backend Engineering.</p>
-        <a href="mailto:your.email@example.com" class="cta-btn">Get in Touch</a>
+        <div class="status-badge">
+            <i class="fas fa-briefcase"></i> Unity Intern @ Falcon Game Studio
+        </div>
+        <h1>Hi, I'm <span style="color:var(--accent)">[Your Name]</span>.</h1>
+        <p class="hero-text">
+            I build immersive worlds with <b>Unity</b> and scalable backends with <b>Spring Boot</b>. 
+            Currently a student at PTIT, bridging the gap between game design and software engineering.
+        </p>
+        <div class="btn-group">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="mailto:your.email@example.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Contact Me</a>
+        </div>
     </header>
 
-    <section class="container">
-        <h2 class="section-title">Technical Expertise</h2>
-        <div class="skills-grid">
-            <div class="skill-card game">
-                <h3>Game Development</h3>
-                <p>Unity 2D/3D, C#, Physics, Sprite Animation, Performance Optimization.</p>
+    <section class="container" id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    I am a software engineering student at the <strong>Posts and Telecommunications Institute of Technology (PTIT)</strong>. 
+                    While my academic foundation is built on robust backend technologies like Java and SQL, my passion lies in bringing ideas to life through game development.
+                </p>
+                <p>
+                    I enjoy solving algorithmic challenges—often diving into competitive programming to sharpen my logic—and applying that same rigor to optimize game physics or debug complex backend services.
+                </p>
+                <p>
+                    Currently, I'm preparing to join <strong>Falcon Game Studio</strong> as a Unity Intern, where I'll be contributing to real-world game titles.
+                </p>
             </div>
-            <div class="skill-card">
-                <h3>Backend Engineering</h3>
-                <p>Java, Spring Boot, JPA/Hibernate, RESTful APIs, MySQL, SQL Server.</p>
-            </div>
-            <div class="skill-card">
-                <h3>Data Science</h3>
-                <p>Python, Pandas, Scikit-learn, Data Analysis.</p>
-            </div>
-            <div class="skill-card">
-                <h3>Frontend & Tools</h3>
-                <p>ReactJS, Git/GitHub, Postman.</p>
+            <div class="info-box">
+                <div class="info-item">
+                    <span class="info-label">Location</span>
+                    <span class="info-value">Hanoi, Vietnam</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Education</span>
+                    <span class="info-value">PTIT (Student)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Interests</span>
+                    <span class="info-value">Game Dev, Algorithms, RPGs</span>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="container">
-        <h2 class="section-title">Featured Projects</h2>
+        <h2 class="section-title">Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timeline-date">Dec 2025 - Present</span>
+                <h3 class="timeline-role">Unity Developer Intern</h3>
+                <div class="timeline-company">Falcon Game Studio</div>
+                <p class="timeline-desc">Accepted offer to join the development team. Focusing on gameplay mechanics, optimization, and feature implementation for mobile titles.</p>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">2022 - Present</span>
+                <h3 class="timeline-role">Software Engineering Student</h3>
+                <div class="timeline-company">Posts and Telecommunications Institute of Technology (PTIT)</div>
+                <p class="timeline-desc">Specializing in Application Development. coursework in Data Structures, Algorithms, Databases, and Object-Oriented Programming.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Tech Stack</h2>
+        <div class="skills-grid">
+            <div class="skill-card game">
+                <div class="skill-icon"><i class="fas fa-gamepad"></i></div>
+                <h3>Game Dev</h3>
+                <p>Unity 2D/3D, C#, Physics Engines, Animation, Performance Optimization.</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-server"></i></div>
+                <h3>Backend</h3>
+                <p>Java, Spring Boot, Hibernate/JPA, RESTful APIs, Microservices concepts.</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-database"></i></div>
+                <h3>Data & DB</h3>
+                <p>MySQL, SQL Server, Python (Pandas, Scikit-learn), Data Analysis.</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-code"></i></div>
+                <h3>Tools & Other</h3>
+                <p>Git/GitHub, Postman, ReactJS (Frontend basics), Problem Solving.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="projects">
+        <h2 class="section-title">Selected Works</h2>
         <div class="project-grid">
             
             <article class="project-card">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1468110/capsule_616x353.jpg?t=1736191440" alt="Elemental RPG Screenshot" class="card-img">
+                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1468110/capsule_616x353.jpg?t=1736191440" alt="Elemental RPG" class="card-img">
                 <div class="card-content">
-                    <h3>Elemental RPG</h3>
-                    <p>A casual cartoon-style RPG featuring four elemental spells (Fire, Wind, Earth, Water). Features custom sprite interactions and optimized physics.</p>
-                    <div class="card-tags">
+                    <div class="card-title">Elemental RPG</div>
+                    <p class="card-desc">A casual cartoon-style RPG revolving around 4 elemental spells (Fire, Wind, Earth, Water). I implemented the interaction logic and sprite animation system.</p>
+                    <div class="tech-stack">
                         <span class="tag">Unity</span>
                         <span class="tag">C#</span>
                         <span class="tag">Game Design</span>
                     </div>
-                </div>
-            </article>
-
-            <article class="project-card">
-                <img src="https://itrithuc.vn/vn-uploads/tintuc/2023_10/logo_thiennguyen.jpg" alt="Charity App Dashboard" class="card-img">
-                <div class="card-content">
-                    <h3>Charity Donation Platform</h3>
-                    <p>Full-stack web application for charity management. Features secure authentication, donation tracking, and project CRUD operations.</p>
-                    <div class="card-tags">
-                        <span class="tag">Java Spring Boot</span>
-                        <span class="tag">ReactJS</span>
-                        <span class="tag">MySQL</span>
+                    <div class="project-links">
+                        <a href="#" class="link-item"><i class="fab fa-github"></i> Code</a>
+                        <a href="#" class="link-item"><i class="fas fa-play"></i> Demo</a>
                     </div>
                 </div>
             </article>
 
             <article class="project-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxd-oVa81ILQkC-afBymR4P2VL7Cemhu3qGg&s" alt="Game Jam Event" class="card-img">
+                <img src="https://itrithuc.vn/vn-uploads/tintuc/2023_10/logo_thiennguyen.jpg" alt="Charity App" class="card-img">
                 <div class="card-content">
-                    <h3>Global Game Jam Entry</h3>
-                    <p>Theme: A rapid prototype built during the Vietnam Global Game Jam 2025.</p>
-                    <div class="card-tags">
+                    <div class="card-title">Charity Platform</div>
+                    <p class="card-desc">Full-stack web application connecting donors with causes. Features include secure user auth, project CRUD management, and donation history tracking.</p>
+                    <div class="tech-stack">
+                        <span class="tag">Spring Boot</span>
+                        <span class="tag">ReactJS</span>
+                        <span class="tag">MySQL</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="link-item"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxd-oVa81ILQkC-afBymR4P2VL7Cemhu3qGg&s" alt="Game Jam" class="card-img">
+                <div class="card-content">
+                    <div class="card-title">GGJ Vietnam 2025</div>
+                    <p class="card-desc">Rapid prototype created for the Global Game Jam. Theme: "Eating instant noodles, talking about making games." Built in 48 hours.</p>
+                    <div class="tech-stack">
                         <span class="tag">Unity</span>
-                        <span class="tag">Rapid Prototyping</span>
+                        <span class="tag">Prototyping</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="link-item"><i class="fas fa-external-link-alt"></i> View Entry</a>
                     </div>
                 </div>
             </article>
@@ -234,8 +363,23 @@
         </div>
     </section>
 
+    <section class="container">
+        <h2 class="section-title">Problem Solving</h2>
+        <p style="color: #ccc; margin-bottom: 20px;">I actively practice algorithms and data structures to keep my problem-solving skills sharp.</p>
+        <div style="display: flex; gap: 20px;">
+            <a href="#" class="btn btn-outline" style="font-size: 0.9rem;"><i class="fas fa-code"></i> LeetCode</a>
+            <a href="#" class="btn btn-outline" style="font-size: 0.9rem;"><i class="fas fa-chart-bar"></i> Codeforces</a>
+        </div>
+    </section>
+
     <footer>
-        <p>&copy; 2026. Built with HTML & CSS.</p>
+        <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:your.email@example.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>&copy; 2026. Built by [Your Name].</p>
     </footer>
 
 </body>
