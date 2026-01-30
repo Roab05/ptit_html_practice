@@ -35,7 +35,7 @@
                               radial-gradient(circle at 85% 85%, rgba(255, 79, 129, 0.08) 0%, transparent 25%);
             color: var(--text-main);
             font-family: var(--font-main);
-            line-height: 1.7; /* Increased line-height for readability */
+            line-height: 1.7; 
             font-size: 16px;
         }
 
@@ -49,9 +49,10 @@
             padding: 0 24px;
         }
 
-        /* Natural Spacing: 80px - 100px is standard for modern sections */
+        /* UPDATED: Increased top padding for "more gap before title" */
         section { 
-            padding: 90px 0; 
+            padding-top: 120px;    /* Increased from 90px */
+            padding-bottom: 80px;  /* Slightly reduced bottom padding to balance */
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         section:last-of-type { border-bottom: none; }
@@ -65,7 +66,8 @@
         
         .section-title { 
             font-size: 2rem; 
-            margin-bottom: 50px; /* Space between title and content */
+            /* UPDATED: Reduced margin to bring content closer to title */
+            margin-bottom: 30px; 
             display: flex; 
             align-items: center; 
             gap: 15px;
@@ -81,7 +83,7 @@
 
         /* --- HERO SECTION --- */
         header {
-            min-height: 85vh; /* Takes up most of the screen */
+            min-height: 85vh; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -136,7 +138,7 @@
         .about-grid {
             display: grid;
             grid-template-columns: 1.5fr 1fr;
-            gap: 60px; /* Generous gap between text and info box */
+            gap: 60px; 
             align-items: start;
         }
         .about-text p { margin-bottom: 20px; font-size: 1.05rem; }
@@ -167,7 +169,7 @@
         }
         .timeline-item { 
             position: relative; 
-            margin-bottom: 50px; /* Space between timeline items */
+            margin-bottom: 50px; 
         }
         .timeline-item:last-child { margin-bottom: 0; }
         
@@ -179,7 +181,7 @@
             border-radius: 50%;
             background: var(--bg-color);
             border: 3px solid var(--accent);
-            box-shadow: 0 0 0 4px var(--bg-color); /* Creates a "gap" around the dot */
+            box-shadow: 0 0 0 4px var(--bg-color); 
         }
         
         .timeline-date { color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; display: block; }
@@ -195,7 +197,7 @@
         }
         .skill-card {
             background: var(--card-bg);
-            padding: 30px; /* More internal breathing room */
+            padding: 30px; 
             border-radius: 10px;
             border: 1px solid var(--border-color);
             transition: 0.3s;
@@ -211,7 +213,7 @@
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px; /* Large gap between projects */
+            gap: 40px; 
         }
         .project-card {
             background: var(--card-bg);
@@ -259,7 +261,7 @@
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             h1 { font-size: 2.8rem; }
-            section { padding: 60px 0; }
+            section { padding: 80px 0; } /* Adjusted mobile padding */
             .about-grid { grid-template-columns: 1fr; gap: 40px; }
             .project-grid { grid-template-columns: 1fr; }
         }
@@ -269,16 +271,16 @@
 
     <header class="container">
         <div class="status-badge">
-            <i class="fas fa-gamepad"></i> Unity Intern @ Falcon Game Studio
+            <i class="fas fa-gamepad"></i> Student at Posts and Telecommunications Institute of Technology
         </div>
-        <h1>Hi, I'm <span style="color:var(--accent)">[Your Name]</span>.</h1>
+        <h1>Hi, I'm <span style="color:var(--accent)"></span>Bao Dinh Gia.</h1>
         <p class="hero-text">
             I bridge the gap between immersive Game Design and robust Backend Engineering. 
             Currently a student at PTIT, building worlds with Unity and systems with Spring Boot.
         </p>
         <div class="btn-group">
             <a href="#projects" class="btn btn-primary">View My Work</a>
-            <a href="mailto:your.email@example.com" class="btn btn-outline">Contact Me</a>
+            <a href="mailto:bao03112005@gmail.com" class="btn btn-outline">Contact Me</a>
         </div>
     </header>
 
@@ -430,9 +432,9 @@
 
     <footer>
         <div class="social-links">
-            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="https://github.com/Roab05" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/bao-dinh-gia/" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.facebook.com/dinh.gia.605131/" class="social-icon"><i class="fab fa-facebook"></i></a>
             <a href="mailto:your.email@example.com" class="social-icon"><i class="fas fa-envelope"></i></a>
         </div>
         <p>&copy; 2026. Designed & Built by [Your Name].</p>
